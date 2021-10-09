@@ -1,0 +1,29 @@
+________________________________________________________________________________________________
+
+API end points :
+/categories : To get a list of all the categories
+/categories/{category_id} : To get the details of the category with the id = category_id
+/children/{category_id} : To get the list of immediate sub-categories of the category with id = category_id
+/root :  To get a list of all the root categories
+/root/{category_id} : To get the root category of the category with id = category_id
+/parent/{category_id} : To get the immediate category of the sub-category with id = category_id
+/path/{category_id} : To get the path of the category with the id = category_id from the root category
+
+---- POST ----
+/categories : To add a new category (root)
+/categories/{category_id} : To add a new sub-category to the category with id = category_id
+
+ ---- PUT ----
+/categories/{category_id} : To update the category with id = category_id
+
+---- DELETE ----
+/categories/{category_id} : To delete the category with id = category_id
+/children/{category_id} : To delete all the sub-categories of the category with id = category_id
+________________________________________________________________________________________________
+
+Database : 
+id,
+name,
+description,
+parent_category_id
+________________________________________________________________________________________________
