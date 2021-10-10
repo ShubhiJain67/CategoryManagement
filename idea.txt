@@ -7,7 +7,6 @@ API end points :
 /root :  To get a list of all the root categories
 /root/{category_id} : To get the root category of the category with id = category_id
 /parent/{category_id} : To get the immediate category of the sub-category with id = category_id
-/path/{category_id} : To get the path of the category with the id = category_id from the root category
 
 ---- POST ----
 /categories : To add a new category (root)

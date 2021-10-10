@@ -1,7 +1,7 @@
 from database import Base
 from sqlalchemy import String, Integer, Column, Text
 
-class Category(Base):
+class Category_DB(Base):
     __tablename__ = 'categories'
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False, unique=True)

@@ -1,5 +1,5 @@
 from database import Base, engine
-from models_db import Category
+from models_db import Category_DB
 
 print("Creating Database ...")
 
