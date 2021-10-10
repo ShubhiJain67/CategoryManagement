@@ -31,22 +31,15 @@ def get_category(category_id: int):
 
 # To add a new category
 @router.post('/', response_model=Category)
-def add_category(category: Category):
-    # new_category = Category_DB(
-    #         id = 1,
-    #         name = category.name,
-    #         description = category.description,
-    #         parent_category_id = -1
-    #     )
-    # return new_category
-    target_category = db.query(Category_DB).filter(Category_DB.title == category.title).first()
+def add_category(title: str, description:str):
+    target_category = db.query(Category_DB).filter(Category_DB.title == title).first()
     if target_category:
-        raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Category with the same name already exists in the database")
+        raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Category with the same title already exists in the database")
     else:
         new_category = Category_DB(
-            id = randint(0, 1000000),
-            name = category.name,
-            description = category.description,
+            id = randint(0,100000),
+            title = title,
+            description = description,
             parent_category_id = -1
         )
         db.add(new_category)
@@ -54,18 +47,17 @@ def add_category(category: Category):
         return new_category
 
 # To add a new sub-category to the category with id = category_id
-@router.post('/{parent_name}', response_model=Category)
-def add_sub_category(parent_name: str, category: Category):
-    target_category = db.query(Category_DB).filter(Category_DB.title == category.title).first()
+@router.post('/{parent_category_id}', response_model=Category)
+def add_sub_category(parent_category_id: str, title: str, description:str):
+    target_category = db.query(Category_DB).filter(Category_DB.title == title).first()
     if target_category:
-        raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Category with the same name already exists in the database")
+        raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Category with the same title already exists in the database")
     else:
-        parent_category = db.quesry(Category_DB).filter(Category_DB.name == parent_name).first()
         new_category = Category_DB(
             id = randint(0, 1000000),
-            name = category.name,
-            description = category.description,
-            parent_category_id = parent_category.id
+            title = title,
+            description = description,
+            parent_category_id = parent_category_id
         )
         db.add(new_category)
         db.commit()
@@ -76,7 +68,7 @@ def add_sub_category(parent_name: str, category: Category):
 def update_category(category_id: int, updated_category: Category):
     target_category = db.query(Category_DB).filter(Category_DB.title == updated_category.title).first()
     if target_category:
-        raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Category with the same name already exists in the database")
+        raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Category with the same title already exists in the database")
     else:
         category = db.query(Category_DB).filter(Category_DB.id == category_id).first()
         if category:

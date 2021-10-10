@@ -19,7 +19,7 @@ router = APIRouter(
 # To get a list of all the root categories
 @router.get('/', response_model=List[Category])
 def get_all_root_categories():
-    root_categories = db.query(Category_DB).filter(Category_DB.id == -1).all()
+    root_categories = db.query(Category_DB).filter(Category_DB.parent_category_id == -1).all()
     return root_categories
 
 # To get the root category of the category with id = category_id
@@ -27,7 +27,7 @@ def get_all_root_categories():
 def get_root_category(category_id: int):
     category = db.query(Category_DB).filter(Category_DB.id == category_id).first()
     if category:
-        while category.id != -1:
+        while category.parent_category_id != -1:
             category = db.query(Category_DB).filter(Category_DB.id == category.parent_category_id).first()
         return category
     else:

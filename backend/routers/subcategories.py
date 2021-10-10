@@ -21,7 +21,7 @@ router = APIRouter(
 def get_all_sub_categories(category_id: int):
     category = db.query(Category_DB).filter(Category_DB.id == category_id).first()
     if category:
-        subcategories = db.query(Category_DB).filter(Category_DB.id == category.parent_category_id).all()
+        subcategories = db.query(Category_DB).filter(Category_DB.parent_category_id == category.id).all()
         return subcategories
     else:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"Category with ID : {category_id} not Found in the database")
@@ -31,7 +31,7 @@ def get_all_sub_categories(category_id: int):
 def delete_all_sub_categories(category_id: int):
     category = db.query(Category_DB).filter(Category_DB.id == category_id).first()
     if category:
-        subCategories = db.query(Category_DB).filter(Category_DB.id == category.parent_category_id).all()
+        subCategories = db.query(Category_DB).filter(Category_DB.parent_category_id == category.id).all()
         for subCategory in subCategories:
             db.delete(subCategory)
         db.commit()
