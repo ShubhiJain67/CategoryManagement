@@ -2,6 +2,7 @@ import React from 'react'
 import Node from './Node.jsx'
 
 const NodeList = ({formHandler, setFormHandler, nodeList, setUpdatedRootNodes, setEditItem, setNode}) => {
+    console.log("Rendering Node List " )
     const NodeList = (nodeList).map((node) => {
         return (
             <Node 

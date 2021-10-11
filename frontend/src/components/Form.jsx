@@ -29,6 +29,7 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
         ).then((response) => {
             if(response.status >= 200 && response.status < 300){
                 setUpdatedRootNodes(Math.floor(Math.random() * 1000001))
+                setEditItem({status : false, node : null})
                 console.log("Sucessfully edited the category : " + response.status)
             }
             else{
@@ -68,7 +69,7 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
         }
         else{
             if(formHandler.parent_category_id !== -1){
-                apiEndPoints=`/${editItem.node.id}`
+                apiEndPoints=`/${formHandler.parent_category_id}`
             }
             apiEndPoints += `?title=${formHandler.title}&description=${formHandler.description}`
             addCategory(apiEndPoints)

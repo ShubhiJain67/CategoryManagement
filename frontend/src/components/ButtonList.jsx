@@ -2,13 +2,8 @@ import React from 'react'
 
 const ButtonList = ({nodeList, setNodeList}) => {
     const Sort = (fieldName) => {
-        console.log("Clicked " + fieldName)
-        
         nodeList.sort((a, b) => a[fieldName] > b[fieldName] ? 1 : -1)
         setNodeList(nodeList)
-        nodeList.map((node) => {
-            console.log(node[fieldName])
-        })
     }
 
     return (
