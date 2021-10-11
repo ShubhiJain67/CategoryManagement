@@ -6,7 +6,7 @@ from models import Category
 db = SessionLocal()
 
 router = APIRouter(
-    prefix="/parent",
+    prefix="/categories/parent",
     tags=["parent"],
     responses={
         404: {"description": "Not found"},

@@ -5,7 +5,7 @@ from models_db import Category_DB
 from models import Category
 
 router = APIRouter(
-    prefix="/root",
+    prefix="/categories/root",
     tags=["root"],
     responses={
         404: {"description": "Not found"},

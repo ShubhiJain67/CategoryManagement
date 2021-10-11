@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react';
 import Header from './components/Header.jsx';
 import CategoryDetails from './components/CategoryDetails.jsx';
+import ButtonList from './components/ButtonList.jsx';
 
 const api = axios.create({
     baseURL : 'http://localhost:8000/categories'
@@ -97,7 +98,9 @@ function App() {
     id : 0,
     title : "",
     description : "",
-    parent_category_id : -1
+    parent_category_id : -1,
+    created_at : "0000-00-00T17:00:00.000Z",
+    last_updated_at : "0000-00-00T17:00:00.000Z"
   })
   const [editItem, setEditItem] = useState({status : false, node : null})
 
@@ -123,7 +126,7 @@ function App() {
     catch(exeception){
         console.log("Exception occurred when tried to hit the get all api : " + exeception)
     }
-  },[updatedRootNodes, nodeList])
+  },[updatedRootNodes])
 
   return (
     <div className="app">
@@ -140,13 +143,19 @@ function App() {
           />
           <CategoryDetails node={node}/>
         </div>
-        <div className="node-list-wrapper col-8">
-          <NodeList
-            setFormHandler={setFormHandler}
-            nodeList = {nodeList}
-            setEditItem={setEditItem}
-            setUpdatedRootNodes={setUpdatedRootNodes}
-            setNode={setNode}/>
+        <div className="body-wrapper col-8">
+          <ButtonList
+            nodeList={nodeList}
+            setNodeList={setNodeList}
+          />
+          <div className="node-list-wrapper ">
+            <NodeList
+              setFormHandler={setFormHandler}
+              nodeList = {nodeList}
+              setEditItem={setEditItem}
+              setUpdatedRootNodes={setUpdatedRootNodes}
+              setNode={setNode}/>
+          </div>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ from fastapi import APIRouter, status, HTTPException
 from database import SessionLocal
 from models_db import Category_DB
 from random import randint
+import datetime
 
 db = SessionLocal()
 
@@ -40,7 +41,9 @@ def add_category(title: str, description:str):
             id = randint(0,100000),
             title = title,
             description = description,
-            parent_category_id = -1
+            parent_category_id = -1,
+            created_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+            last_updated_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         )
         db.add(new_category)
         db.commit()
@@ -57,7 +60,9 @@ def add_sub_category(parent_category_id: str, title: str, description:str):
             id = randint(0, 1000000),
             title = title,
             description = description,
-            parent_category_id = parent_category_id
+            parent_category_id = parent_category_id,
+            created_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+            last_updated_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         )
         db.add(new_category)
         db.commit()
@@ -74,7 +79,8 @@ def update_category(category_id: int, updated_category: Category):
         if category:
             category.title = updated_category.title
             category.description = updated_category.description
-            category.parent_category_id = updated_category.parent_category_id
+            category.parent_category_id = updated_category.parent_category_id,
+            category.last_updated_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             db.commit()
             return category
         else:

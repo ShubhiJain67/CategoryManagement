@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 from pydantic import BaseModel
 
 class Category(BaseModel):
@@ -6,8 +7,8 @@ class Category(BaseModel):
     title: str
     description: str
     parent_category_id: int
-    # created_at: datetime
-    # updated_last_at : datetime
+    created_at: Optional[datetime]
+    last_updated_at : Optional[datetime]
 
     class Config:
         orm_mode = True

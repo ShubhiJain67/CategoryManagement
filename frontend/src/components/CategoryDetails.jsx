@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL : 'http://localhost:8000'
+    baseURL : 'http://localhost:8000/categories'
 })
 
 const CategoryDetails = ({node}) => {
@@ -11,8 +11,9 @@ const CategoryDetails = ({node}) => {
     const [subCategories, setSubCategories] = useState([])
 
     useEffect(() => {
-        console.log("Category Details : " + node)
-        if(node){    
+        console.log("Category Details : ")
+        console.log(node)
+        if(node.id){    
             api.get(`/root/${node.id}`,
             {
                 headers: {'Access-Control-Allow-Origin': '*'},
@@ -80,6 +81,8 @@ const CategoryDetails = ({node}) => {
             </ul>
             <p><span>Parent Node : </span>{parent}</p>
             <p><span>Root Node : </span>{root}</p>
+            <p><span>Created At : </span>{node.created_at}</p>
+            <p><span>Updated At : </span>{node.last_updated_at}</p>
         </div>
     )
 }

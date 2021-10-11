@@ -9,12 +9,15 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
     
     const editCategory = (url) => {
         console.log("Editing a category")
+        console.log(formHandler)
         api.put(url,
         {
             id:formHandler.id,
             title:`${formHandler.title}`,
             description: `${formHandler.description}`,
             parent_category_id: formHandler.parent_category_id,
+            created_at: formHandler.created_at,
+            last_updated_at: formHandler.last_updated_at
         },
         {
             headers: {'Access-Control-Allow-Origin': '*'},
@@ -57,6 +60,7 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
     }
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(event.target)
         let apiEndPoints = `/`
         if(editItem.status){
             apiEndPoints=`/${editItem.node.id}`
@@ -109,6 +113,22 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
                             <option value={node.id} key={node.id}>{node.title}</option>
                         )}
                     </select>
+                </div>
+                <div className="hidden">
+                    <input 
+                        type="text" 
+                        placeholder="Created At"
+                        className="task-input"
+                        value={formHandler.created_at}
+                    />
+                </div>
+                <div className="hidden">
+                    <input 
+                        type="text" 
+                        placeholder="last_updated_at"
+                        className="task-input"
+                        value={formHandler.last_updated_at}
+                    />
                 </div>
                 <div className="incline-content">
                     {/* <button className="button" onClick={() => HandleReset()}>Reset</button> */}
