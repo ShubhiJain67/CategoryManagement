@@ -35,7 +35,6 @@ const Node = ({formHandler, setFormHandler, node, setUpdatedRootNodes, setEditIt
     // }
 
     const HandleNodeClick = (node) => {
-        console.log(node)
         setNode(node)
     }
 

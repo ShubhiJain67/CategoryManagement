@@ -61,7 +61,6 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(event.target)
         let apiEndPoints = `/`
         if(editItem.status){
             apiEndPoints=`/${editItem.node.id}`
