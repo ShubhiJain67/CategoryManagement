@@ -81,8 +81,8 @@ const CategoryDetails = ({node}) => {
             </ul>
             <p><span>Parent Node : </span>{parent}</p>
             <p><span>Root Node : </span>{root}</p>
-            <p><span>Created At : </span>{node.created_at}</p>
-            <p><span>Updated At : </span>{node.last_updated_at}</p>
+            <p><span>Created At : </span>{node.created_at.replace("T", " / ")}</p>
+            <p><span>Updated At : </span>{node.last_updated_at.replace("T", " / ")}</p>
         </div>
     )
 }
