@@ -1,5 +1,5 @@
 import React from 'react'
-import NodeList from '../nodeList/nodeList.jsx'
+import NodeList from './NodeList.jsx'
 
 const Tree = ({treeNodeLists}) => {
     console.log(treeNodeLists)

@@ -4,8 +4,6 @@ from database import SessionLocal
 from models_db import Category_DB
 from models import Category
 
-db = SessionLocal()
-
 router = APIRouter(
     prefix="/root",
     tags=["root"],
@@ -19,12 +17,14 @@ router = APIRouter(
 # To get a list of all the root categories
 @router.get('/', response_model=List[Category])
 def get_all_root_categories():
+    db = SessionLocal()
     root_categories = db.query(Category_DB).filter(Category_DB.parent_category_id == -1).all()
     return root_categories
 
 # To get the root category of the category with id = category_id
 @router.get('/{category_id}', response_model=Category)
 def get_root_category(category_id: int):
+    db = SessionLocal()
     category = db.query(Category_DB).filter(Category_DB.id == category_id).first()
     if category:
         while category.parent_category_id != -1:

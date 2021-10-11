@@ -66,7 +66,7 @@ def add_sub_category(parent_category_id: str, title: str, description:str):
 # To update the category with id = category_id
 @router.put('/{category_id}', response_model=Category)
 def update_category(category_id: int, updated_category: Category):
-    target_category = db.query(Category_DB).filter(Category_DB.title == updated_category.title).first()
+    target_category = db.query(Category_DB).filter(Category_DB.title == updated_category.title).filter(Category_DB.id != category_id).first()
     if target_category:
         raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Category with the same title already exists in the database")
     else:

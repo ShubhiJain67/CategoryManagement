@@ -4,8 +4,6 @@ from database import SessionLocal
 from models_db import Category_DB
 from models import Category
 
-db = SessionLocal()
-
 router = APIRouter(
     prefix="/tree",
     tags=["tree"],
@@ -19,6 +17,7 @@ router = APIRouter(
 # To get the list of immediate sub-categories of the category with id = category_id
 @router.get('/{category_id}', response_model=List[Category])
 def get_category_tree(category_id: int):
+    db = SessionLocal()
     category = db.query(Category_DB).filter(Category_DB.id == category_id).first()
     subcategories = db.query(Category_DB).filter(Category_DB.parent_category_id == category.id).all()
     result = []

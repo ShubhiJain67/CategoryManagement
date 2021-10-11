@@ -1,38 +1,152 @@
-.App {
+.app {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+.app-wrapper {
   background-color: #282c34;
   min-height: 100vh;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+/* -------------------------------Sart of Header----------------------------------- */
+.header h1{
+  color: #282c34;
+}
+/* -------------------------------End of Header----------------------------------- */
+
+/* -------------------------------Sart of Sidenav----------------------------------- */
+.sidenav {
+  height: 100%;
+  z-index: 1;
+  background-color: antiquewhite;
+  /* overflow-x: hidden; */
+  padding-top: 20px;
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* -------------------------------Start of Form----------------------------------- */
+.form-wrapper{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 30px 0px;
+}
+
+form{
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+form div{
+  display: inline;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.task-input{
+  outline: none;
+  width: 100%;
+  padding: 15px;
+  font-size: 20px;
+  background-color: #282c34;
+  border: 3px solid antiquewhite;
+  border-radius: 20px;
+  color: antiquewhite;
 }
+.full-width{
+  width: 100%;
+}
+
+.half-width{
+  width: 45%;
+}
+
+.hidden{
+  display: none;
+}
+
+.incline-content{
+  display: flex;
+}
+
+.button{
+  min-width: 100px;
+  padding: 15px 15px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 0;
+  margin: 30px 10px 10px 0px;
+  /* background-color: #f1af71; */
+  background-color: #c89666;
+  cursor: pointer;
+  color: #fff;
+  display: inline;
+}
+/* -------------------------------End of Form----------------------------------- */
+/* -------------------------------Start of Category Details----------------------------------- */
+
+.category-wrapper{
+  color: #282c34;
+  font-size: 23px;
+}
+.category-wrapper p span{
+  font-size: 24px;
+  font-weight: 600;
+}
+.category-wrapper ul{
+  list-style: none;
+}
+
+/* -------------------------------End of Category Details----------------------------------- */
+/* -------------------------------End of Sidenav----------------------------------- */
+
+/* -------------------------------Start of Node List----------------------------------- */
+.node-list-wrapper{
+  display: flex;
+}
+.node-list{
+  display: flex;
+  /* flex-direction:column ; */
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.node-wrapper{
+  padding: 20px;
+}
+.node{
+  border-radius: 10px;
+  background-color: antiquewhite;
+  color: black;
+  padding: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  min-width: 250px;
+}
+
+.button-delete,
+.button-edit,
+.button-add{
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  font-size: 30px;
+  border-radius: 50%;
+}
+.button-add{
+  color: blueviolet;
+}
+.button-edit{
+  color: rgb(195, 240, 34);
+}
+.button-delete{
+  color: lightseagreen;
+}
+
+/* -------------------------------End of Node List----------------------------------- */
