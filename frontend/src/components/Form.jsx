@@ -29,7 +29,7 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
         ).then((response) => {
             if(response.status >= 200 && response.status < 300){
                 setUpdatedRootNodes(Math.floor(Math.random() * 1000001))
-                setEditItem({status : false, node : null})
+                HandleReset()
                 console.log("Sucessfully edited the category : " + response.status)
             }
             else{
@@ -74,6 +74,10 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
             apiEndPoints += `?title=${formHandler.title}&description=${formHandler.description}`
             addCategory(apiEndPoints)
         }
+    }
+    const HandleReset = () => {
+        setFormHandler({...formHandler, id:"", title:"", description:"", parent_category_id:-1})
+        setEditItem({status : false, node : null})
     }
     
     return (
@@ -132,7 +136,7 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
                     />
                 </div>
                 <div className="incline-content">
-                    {/* <button className="button" onClick={() => HandleReset()}>Reset</button> */}
+                    <button className="button" onClick={() => HandleReset()}>Reset</button>
                     <button className="button" type="submit">{!editItem.status? formHandler.parent_category_id === -1 ?"Add Category" : `Add Sub Category` : "Update Item"}</button>
                 </div>
             </form>
