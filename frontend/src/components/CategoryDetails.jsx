@@ -6,14 +6,15 @@ const api = axios.create({
 })
 
 const CategoryDetails = ({node}) => {
+    console.log("Categiry Details Eneterance")
     const [parent, setParent] = useState()
     const [root, setRoot] = useState()
     const [subCategories, setSubCategories] = useState([])
 
     useEffect(() => {
-        console.log("Category Details : ")
-        console.log(node)
         if(node.id){    
+            console.log("Category Details : ")
+            console.log(node)
             api.get(`/root/${node.id}`,
             {
                 headers: {'Access-Control-Allow-Origin': '*'},
@@ -66,11 +67,8 @@ const CategoryDetails = ({node}) => {
         }
     }, [node])
 
-    return (
-        <div className={node.id? "category-wrapper" : "hidden"} key={node ? node.id : ""}>
-            <h1>{node ? node.title : ""}</h1>
-            <p><span>Description : </span>{node ? node.description : ""}</p>
-            <p><span>ID : </span>{node? node.id : ""}</p>
+    const SubCategories = () => {
+        return <>
             <p><span>Sub Categories :</span></p>
             <ul className="sub-category-list">
                 {
@@ -79,7 +77,20 @@ const CategoryDetails = ({node}) => {
                     )
                 }
             </ul>
-            <p><span>Parent Node : </span>{parent}</p>
+        </>
+    }
+
+    const Parent = () => {
+        return <p><span>Parent Node : </span>{parent}</p>
+    }
+
+    return (
+        <div className={node.id? "category-wrapper" : "hidden"} key={node ? node.id : ""}>
+            <h1>{node ? node.title : ""}</h1>
+            <p><span>Description : </span>{node ? node.description : ""}</p>
+            <p><span>ID : </span>{node? node.id : ""}</p>
+            {subCategories.length > 0 && SubCategories()}
+            {parent !== 'Root' && Parent()}
             <p><span>Root Node : </span>{root}</p>
             <p><span>Created At : </span>{node.created_at ? node.created_at.replace("T", " / ") : ""}</p>
             <p><span>Updated At : </span>{node.last_updated_at ? node.last_updated_at.replace("T", " / ") : ""}</p>

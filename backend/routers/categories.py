@@ -1,4 +1,4 @@
-from models import Category
+from models import Category, Category_v2
 from typing import List
 from fastapi import APIRouter, status, HTTPException
 from database import SessionLocal
@@ -42,8 +42,8 @@ def add_category(title: str, description:str):
             title = title,
             description = description,
             parent_category_id = -1,
-            created_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-            last_updated_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            created_at = datetime.datetime.now(),
+            last_updated_at = datetime.datetime.now()
         )
         db.add(new_category)
         db.commit()
@@ -61,8 +61,8 @@ def add_sub_category(parent_category_id: str, title: str, description:str):
             title = title,
             description = description,
             parent_category_id = parent_category_id,
-            created_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-            last_updated_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            created_at = datetime.datetime.now(),
+            last_updated_at = datetime.datetime.now()
         )
         db.add(new_category)
         db.commit()
@@ -70,7 +70,7 @@ def add_sub_category(parent_category_id: str, title: str, description:str):
 
 # To update the category with id = category_id
 @router.put('/{category_id}', response_model=Category)
-def update_category(category_id: int, updated_category: Category):
+def update_category(category_id: int, updated_category: Category_v2):
     target_category = db.query(Category_DB).filter(Category_DB.title == updated_category.title).filter(Category_DB.id != category_id).first()
     if target_category:
         raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Category with the same title already exists in the database")
@@ -79,8 +79,8 @@ def update_category(category_id: int, updated_category: Category):
         if category:
             category.title = updated_category.title
             category.description = updated_category.description
-            category.parent_category_id = updated_category.parent_category_id,
-            category.last_updated_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            category.parent_category_id = updated_category.parent_category_id
+            category.last_updated_at = datetime.datetime.now()
             db.commit()
             return category
         else:

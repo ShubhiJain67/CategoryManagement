@@ -12,3 +12,11 @@ class Category(BaseModel):
 
     class Config:
         orm_mode = True
+
+class Category_v2(BaseModel):
+    title: str
+    description: str
+    parent_category_id: int
+
+    class Config:
+        orm_mode = True

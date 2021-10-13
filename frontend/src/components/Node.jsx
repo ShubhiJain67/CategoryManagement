@@ -5,34 +5,8 @@ const api = axios.create({
     baseURL : 'http://localhost:8000/categories'
 })
 
-const Node = ({formHandler, setFormHandler, node, setUpdatedRootNodes, setEditItem, setNode}) => {
-    // let queue = [];
-
-    // const apiResult = async (id, tempData, callBack) => {
-    //     await api.get(`subcategories/${id}`,
-    //     {
-    //         headers: {'Access-Control-Allow-Origin': '*'},
-    //         proxy: {
-    //             host: 'localhost',
-    //           port: 800
-    //         }
-    //     }).then((response) => {
-    //         callBack(response)
-    //     })
-    // }
-
-    // const queueIterator = async (queue, callback) => {
-    //     let tempData = []
-    //     await queue.map((queueElement) => {
-    //         console.log("2 : Queue Element : " + queueElement)
-    //         apiResult(queueElement.id, tempData, (response) => {
-    //             console.log("3 Response Data " + response.data);
-    //             tempData = [[...tempData], [...response.data]]
-    //         })
-    //     })
-    //     console.log("4 Temp Data : " + tempData)
-    //     callback(tempData)
-    // }
+const Node = ({setFormHandler, node, setUpdatedRootNodes, setEditItem, setNode}) => {
+    console.log("Node Eneterance")
 
     const HandleNodeClick = (node) => {
         setNode(node)
@@ -40,7 +14,9 @@ const Node = ({formHandler, setFormHandler, node, setUpdatedRootNodes, setEditIt
 
     const HandleSubcategoryAddition = (node) => {
         console.log(`Adding a Sub Category`)
-        setFormHandler({...formHandler, parent_category_id:node.id})
+        setFormHandler((formHandler) => {
+            return {...formHandler, parent_category_id:node.id}
+        })
         setEditItem({status : false, node : node})
     }
 

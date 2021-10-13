@@ -6,18 +6,16 @@ const api = axios.create({
 })
 
 const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRootNodes, nodeList}) => {
+    console.log("Form Eneterance")
     
     const editCategory = (url) => {
         console.log("Editing a category")
         console.log(formHandler)
         api.put(url,
         {
-            id:formHandler.id,
             title:`${formHandler.title}`,
             description: `${formHandler.description}`,
-            parent_category_id: formHandler.parent_category_id,
-            created_at: formHandler.created_at,
-            last_updated_at: formHandler.last_updated_at
+            parent_category_id: formHandler.parent_category_id
         },
         {
             headers: {'Access-Control-Allow-Origin': '*'},
@@ -52,6 +50,7 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
             }).then((response) => {
                 if(response.status >= 200 && response.status < 300){
                     setUpdatedRootNodes(Math.floor(Math.random() * 1000001))
+                    HandleReset()
                     console.log(`Added Category Sucessfylly : ${response.data?.title} - ${response.data?.description}`)
                 }
                 else{
@@ -75,7 +74,7 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
         }
     }
     const HandleReset = () => {
-        setFormHandler({...formHandler, id:"", title:"", description:"", parent_category_id:-1})
+        setFormHandler({...formHandler, id:"", title:"", description:"", parent_category_id:-1, created_at:"", last_updated_at:""})
         setEditItem({status : false, node : null})
     }
     
@@ -129,7 +128,7 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
                 <div className="hidden">
                     <input 
                         type="text" 
-                        placeholder="last_updated_at"
+                        placeholder="Last Updated At"
                         className="task-input"
                         value={formHandler.last_updated_at}
                     />

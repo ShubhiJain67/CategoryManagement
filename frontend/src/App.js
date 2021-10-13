@@ -2,7 +2,7 @@ import './App.css';
 import NodeList from './components/NodeList.jsx'
 import Form from './components/Form.jsx'
 import axios from 'axios'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Header from './components/Header.jsx';
 import CategoryDetails from './components/CategoryDetails.jsx';
 import ButtonList from './components/ButtonList.jsx';
@@ -91,6 +91,7 @@ const api = axios.create({
 // ]
 
 function App() {
+  console.log("App Eneterance ")
   const [nodeList, setNodeList] = useState([])
   const [node, setNode] = useState({})
   const [updatedRootNodes, setUpdatedRootNodes] = useState(false)
@@ -99,12 +100,13 @@ function App() {
     title : "",
     description : "",
     parent_category_id : -1,
-    created_at : "0000-00-00T17:00:00.000Z",
-    last_updated_at : "0000-00-00T17:00:00.000Z"
+    created_at : "",
+    last_updated_at : ""
   })
   const [editItem, setEditItem] = useState({status : false, node : null})
 
-  useEffect(() => {
+  const dbNodeList = useMemo(() => {
+    console.log("App useMemo")
     try{
       api.get('/',
       {
@@ -145,7 +147,6 @@ function App() {
         </div>
         <div className="body-wrapper col-8">
           <ButtonList
-            nodeList={nodeList}
             setNodeList={setNodeList}
           />
           <div className="node-list-wrapper ">

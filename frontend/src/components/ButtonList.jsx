@@ -1,11 +1,11 @@
 import React from 'react'
 
-const ButtonList = ({nodeList, setNodeList}) => {
+const ButtonList = ({setNodeList}) => {
+    console.log("Button List eneterance ")
     const Sort = (fieldName) => {
-        nodeList.sort((a, b) => a[fieldName] > b[fieldName] ? 1 : -1)
-        setNodeList(nodeList)
-        nodeList.map((node) => {
-            console.log(node[fieldName])
+        setNodeList((nodeList)=> {
+            nodeList.sort((a, b) => a[fieldName] > b[fieldName] ? 1 : -1)
+            return [...nodeList]
         })
     }
 
