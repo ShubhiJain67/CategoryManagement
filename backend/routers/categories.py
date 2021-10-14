@@ -1,3 +1,4 @@
+from sqlalchemy.sql.expression import false, true
 from models import Category, Category_v2
 from typing import List
 from fastapi import APIRouter, status, HTTPException
@@ -75,16 +76,27 @@ def update_category(category_id: int, updated_category: Category_v2):
     if target_category:
         raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Category with the same title already exists in the database")
     else:
-        category = db.query(Category_DB).filter(Category_DB.id == category_id).first()
-        if category:
-            category.title = updated_category.title
-            category.description = updated_category.description
-            category.parent_category_id = updated_category.parent_category_id
-            category.last_updated_at = datetime.datetime.now()
-            db.commit()
-            return category
+        if is_parent_child_of_category(category_id, updated_category.parent_category_id):
+            raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail=f"Parent Category cannot have it's Sub Category as its Parent")
         else:
-            raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"Category with ID : {category_id} not Found in the database")
+            category = db.query(Category_DB).filter(Category_DB.id == category_id).first()
+            if category:
+                category.title = updated_category.title
+                category.description = updated_category.description
+                category.parent_category_id = updated_category.parent_category_id
+                category.last_updated_at = datetime.datetime.now()
+                db.commit()
+                return category
+            else:
+                raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"Category with ID : {category_id} not Found in the database")
+
+def is_parent_child_of_category(category_id: int, parent_id: int):
+    parent = db.query(Category_DB).filter(Category_DB.id == parent_id).first()
+    while parent.parent_category_id != -1:
+        if parent.parent_category_id == category_id:
+            return true
+        parent = db.query(Category_DB).filter(Category_DB.id == parent.parent_category_id).first()
+    return false
 
 # To delete the category with id = category_id
 @router.delete('/{category_id}')

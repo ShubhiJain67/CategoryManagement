@@ -61,8 +61,14 @@ const CategoryDetails = ({node}) => {
                         else{
                             setSubCategories([])
                         }
+                    }).catch((exception) => {
+                        console.log("Error Occurred while fetching the subcategories : " + exception)
                     })
+                }).catch((exception) => {
+                    console.log("Error Occurred while fetching the parent node : " + exception)
                 })
+            }).catch((exception) => {
+                console.log("Error Occurred while fetching the root node : " + exception)
             })
         }
     }, [node])

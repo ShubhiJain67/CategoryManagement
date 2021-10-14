@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import categories as CategoryRouter, categories_root as RootRouter, categories_subcategories as SubCategoryRouter, categories_parent as ParentRouter, tree as TreeRouter
+from routers import categories as CategoryRouter, categories_root as RootRouter, categories_subcategories as SubCategoryRouter, categories_parent as ParentRouter
 
 app = FastAPI()
 
@@ -17,4 +17,3 @@ app.include_router(CategoryRouter.router)
 app.include_router(RootRouter.router)
 app.include_router(SubCategoryRouter.router)
 app.include_router(ParentRouter.router)
-app.include_router(TreeRouter.router)

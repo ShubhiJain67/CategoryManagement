@@ -27,14 +27,18 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
         ).then((response) => {
             if(response.status >= 200 && response.status < 300){
                 setUpdatedRootNodes(Math.floor(Math.random() * 1000001))
-                HandleReset()
                 console.log("Sucessfully edited the category : " + response.status)
             }
             else{
                 console.log("Error Occurred while editing the data : " + response.status)
             }
+            HandleReset()
+        }).catch((exception) => {
+            HandleReset()
+            console.log("Error Occurred while editing the data : " + exception)
         })
     }
+
     const addCategory = (url) => {
         console.log("Adding a Category")
         console.log(url)
@@ -50,12 +54,15 @@ const Form = ({formHandler, setFormHandler, editItem, setEditItem, setUpdatedRoo
             }).then((response) => {
                 if(response.status >= 200 && response.status < 300){
                     setUpdatedRootNodes(Math.floor(Math.random() * 1000001))
-                    HandleReset()
                     console.log(`Added Category Sucessfylly : ${response.data?.title} - ${response.data?.description}`)
                 }
                 else{
                     console.log("Error occured while Adding a Category : " + response.status)
                 }
+                HandleReset()
+            }).catch((exception) => {
+                HandleReset()
+                console.log("Error Occurred while adding the data : " + exception)
             })
     }
     const handleSubmit = (event) => {

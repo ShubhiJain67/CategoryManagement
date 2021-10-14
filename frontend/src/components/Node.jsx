@@ -40,6 +40,8 @@ const Node = ({setFormHandler, node, setUpdatedRootNodes, setEditItem, setNode})
         }).then(() => {
             setUpdatedRootNodes(Math.floor(Math.random() * 1000001))
             console.log(`Deleted category : ${node.title} - ${node.description}` )
+        }).catch((exception) => {
+            console.log("Error Occurred while deleting the data : " + exception)
         })
     }
 
